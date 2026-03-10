@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: crawler-test
+    cpus: 2.0
+    mem_limit: 2g
     volumes:
       # Persist Crawlee storages (dataset, key-value store, request queue) on host
       - ./storage:/usr/src/app/storage
