@@ -1,0 +1,10 @@
+services:
+  crawler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crawler-test
+    volumes:
+      # Persist Crawlee storages (dataset, key-value store, request queue) on host
+      - ./storage:/usr/src/app/storage
+    command: ["python", "-m", "crawler_test"]
