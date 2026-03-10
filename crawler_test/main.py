@@ -1,5 +1,6 @@
 import asyncio
 import csv
+from crawlee import ConcurrencySettings
 from crawlee.crawlers import PlaywrightCrawler
 from crawlee.request_loaders import RequestList
 from crawlee.configuration import Configuration
@@ -29,6 +30,10 @@ async def main() -> None:
         headless=True,
     )
 
+    concurrency = ConcurrencySettings(
+        max_concurrency=50,
+    )
+
     event_manager = LocalEventManager.from_config(config)
 
     request_list = RequestList(load_urls_from_csv('./crawler_test/lists/202601.csv'))  # Load URLs from CSV file
@@ -37,12 +42,14 @@ async def main() -> None:
     
     crawler = PlaywrightCrawler(
         configuration=config,
+        concurrency_settings=concurrency,
         event_manager=event_manager,
         request_handler=router,
         request_manager=request_manager,  # Use the RequestManagerTandem for managing requests
         browser_type='chromium',
         browser_launch_options={'chromium_sandbox': False},
-        max_crawl_depth=1, # necessary to limit crawling only to the link(s) fetched from the main URL
+        max_crawl_depth=0,
+        #max_crawl_depth=1, # necessary to limit crawling only to the link(s) fetched from the main URL
         max_requests_per_crawl=1000, # test limit
         use_incognito_pages=True,
     )
