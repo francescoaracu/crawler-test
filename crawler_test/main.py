@@ -67,9 +67,8 @@ async def main() -> None:
         browser_launch_options={'chromium_sandbox': False},
         navigation_timeout=timedelta(seconds=15),
         request_handler_timeout=timedelta(seconds=45),
-        max_request_retries=2,
-        max_crawl_depth=2,
-        #max_crawl_depth=1, # necessary to limit crawling only to the link(s) fetched from the main URL
+        max_request_retries=1,
+        max_crawl_depth=1, # necessary to limit crawling only to the link(s) fetched from the main URL
         max_requests_per_crawl=1000, # test limit
         use_incognito_pages=False,
         status_message_logging_interval=timedelta(seconds=15),
