@@ -1,5 +1,6 @@
 import asyncio
 import csv
+from datetime import timedelta
 from crawlee import ConcurrencySettings
 from crawlee.crawlers import PlaywrightCrawler
 from crawlee.request_loaders import RequestList
@@ -48,6 +49,7 @@ async def main() -> None:
         request_manager=request_manager,  # Use the RequestManagerTandem for managing requests
         browser_type='chromium',
         browser_launch_options={'chromium_sandbox': False},
+        request_handler_timeout=timedelta(seconds=30),
         max_crawl_depth=0,
         #max_crawl_depth=1, # necessary to limit crawling only to the link(s) fetched from the main URL
         max_requests_per_crawl=1000, # test limit
